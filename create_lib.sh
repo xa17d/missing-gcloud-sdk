@@ -16,7 +16,8 @@ echo "discoveryDocumentUrl: $discoveryDocumentUrl"
 
 # make folder structure
 
-libraryFolder="libs/${libraryName}/${libraryVersion}"
+artifactName="${libraryName}-${libraryVersion}"
+libraryFolder="libs/${artifactName}"
 mkdir -p $libraryFolder
 
 # pull discovery document
@@ -48,5 +49,15 @@ docker rm -v "${containerId}"
 
 rm "${containerIdFile}"
 rm -rf "${libraryFolder}/container_files"
+
+echo "▶️ Create build.gradle"
+
+cp src/build.gradle.template "${libraryFolder}/build.gradle"
+
+sed -i "" "s/{artifactName}/${artifactName}/" "${libraryFolder}/build.gradle"
+
+echo "▶️ Add project to settings.gradle"
+
+echo "include ':$libraryName-$libraryVersion'" >> libs/settings.gradle
 
 echo "▶️ Done."

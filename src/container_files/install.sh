@@ -6,4 +6,6 @@ pip install google-apis-client-generator
 
 echo "▶️ Generating library..."
 cd /home/data
-generate_library --input=discoveryDocument.json --language=java --output_dir=.
+
+mkdir -p src/main/java
+generate_library --input=discoveryDocument.json --language=java --output_dir=src/main/java
