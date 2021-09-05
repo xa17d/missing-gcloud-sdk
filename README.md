@@ -113,4 +113,9 @@ class HttpCredentialsAndTimeoutAdapter(
 
 ## Generated Libraries
 
-none.
+The generated library code is added on [libraries branch](https://github.com/xa17d/missing-gcloud-sdk/tree/libraries/libs).
+
+| API | Version | Source |
+| --- | ------- | ------ |
+| testing | v1 | Cloud Testing API<br>https://firebase.google.com/docs/test-lab/reference/testing/rest<br>https://testing.googleapis.com/$discovery/rest?version=v1 |
+| toolresults | v1beta3 | Cloud Tool Results API<br>https://firebase.google.com/docs/test-lab/reference/toolresults/rest<br>https://toolresults.googleapis.com/$discovery/rest?version=v1beta3 |
