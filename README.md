@@ -114,6 +114,7 @@ class HttpCredentialsAndTimeoutAdapter(
 ## Generated Libraries
 
 The generated library code is added on [libraries branch](https://github.com/xa17d/missing-gcloud-sdk/tree/libraries/libs).
+Compiled JAR files are added to the [Releases](https://github.com/xa17d/missing-gcloud-sdk/releases) page.
 
 | API | Version | Source |
 | --- | ------- | ------ |
