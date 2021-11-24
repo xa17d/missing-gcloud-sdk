@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 libraryName=$1
 libraryVersion=$2
 discoveryDocumentUrl=$3
@@ -38,16 +40,10 @@ cp -r src/container_files "${containerFiles}"
 echo ""
 echo "▶️ Setting up Docker container..."
 
-containerIdFile="${PWD}/${libraryFolder}/container_id"
-docker run --cidfile "${containerIdFile}" -v "${PWD}/${libraryFolder}:/home/data" python:2 /home/data/container_files/install.sh
-containerId=`cat "${containerIdFile}"`
+docker run --rm -v "${PWD}/${libraryFolder}:/home/data" python:2 /home/data/container_files/install.sh
 
-echo "▶️ Deleting Docker container (containerId=${containerId})..."
+echo "▶️ Cleanup files..."
 
-docker stop "${containerId}"
-docker rm -v "${containerId}"
-
-rm "${containerIdFile}"
 rm -rf "${libraryFolder}/container_files"
 
 echo "▶️ Create build.gradle"
