@@ -22,12 +22,14 @@ https://testing.googleapis.com/$discovery/rest?version=v1
 
 **2. Generate Script**
 
-Call `./create_lib.sh {name} {version} {discoveryDocumentUrl}`.
+Call `./create_lib.sh {mavenGroup} {mavenArtifact} {mavenVersion} {discoveryDocumentUrl}`.
+
+ `{mavenGroup} {mavenArtifact} {mavenVersion}` are used in the generated gradle configuration, and can be used to include those libraries via maven in other projects.
 
 Examples:
 ```bash
-./create_lib.sh testing v1 https://testing.googleapis.com/\$discovery/rest\?version\=v1
-./create_lib.sh toolresults v1beta3 https://toolresults.googleapis.com/\$discovery/rest\?version\=v1beta3
+./create_lib.sh at.xa1.missing-gcloud-sdk firebase-testing 1 https://testing.googleapis.com/\$discovery/rest\?version\=v1
+./create_lib.sh at.xa1.missing-gcloud-sdk firebase-toolresults 1beta3 https://toolresults.googleapis.com/\$discovery/rest\?version\=v1beta3
 ```
 _(Note: Don't forget to escape `$` contained in the URL)_
 
@@ -47,9 +49,11 @@ Optionally, you can publish the libraries to maven local:
 
 Add dependencies:
 ``` groovy
-implementation "com.google.api-client:google-api-client:1.32.1"
-implementation "at.xa1.missing-gcloud-sdk:testing-v1:0.1" // <-- this is the generated library, 
-                                                          //     deployed to maven local
+implementation "com.google.api-client:google-api-client:1.32.2"
+implementation "at.xa1.missing-gcloud-sdk:firebase-testing:1" // <-- this is the generated library, 
+                                                              //     deployed to maven local
+implementation "at.xa1.missing-gcloud-sdk:firebase-toolresults:1beta3"
+…
 ```
 
 ```kotlin

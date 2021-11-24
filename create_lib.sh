@@ -2,24 +2,25 @@
 
 set -e
 
-libraryName=$1
-libraryVersion=$2
-discoveryDocumentUrl=$3
+mavenGroup=$1
+mavenArtifact=$2
+mavenVersion=$3
+discoveryDocumentUrl=$4
 
-if [[ -z "$libraryName" || -z "$libraryVersion" || -z "$discoveryDocumentUrl" ]]; then
-  echo "Parameters: libraryName libraryVersion discoveryDocumentUrl"
+if [[ -z "$mavenGroup" || -z "$mavenArtifact" || -z "$mavenVersion" || -z "$discoveryDocumentUrl" ]]; then
+  echo "Parameters: {mavenGroup} {mavenArtifact} {mavenVersion} {discoveryDocumentUrl}"
   echo "See README.md for more details."
   exit 1
 fi
 
-echo "libraryName:          $libraryName"
-echo "libraryVersion:       $libraryVersion"
+echo "mavenGroup:           $mavenGroup"
+echo "mavenArtifact:        $mavenArtifact"
+echo "mavenVersion:         $mavenVersion"
 echo "discoveryDocumentUrl: $discoveryDocumentUrl"
 
 # make folder structure
 
-artifactName="${libraryName}-${libraryVersion}"
-libraryFolder="libs/${artifactName}"
+libraryFolder="libs/${mavenArtifact}"
 mkdir -p $libraryFolder
 
 # pull discovery document
@@ -50,10 +51,12 @@ echo "▶️ Create build.gradle"
 
 cp src/build.gradle.template "${libraryFolder}/build.gradle"
 
-sed -i "" "s/{artifactName}/${artifactName}/" "${libraryFolder}/build.gradle"
+sed -i "" "s/{mavenGroup}/${mavenGroup}/" "${libraryFolder}/build.gradle"
+sed -i "" "s/{mavenArtifact}/${mavenArtifact}/" "${libraryFolder}/build.gradle"
+sed -i "" "s/{mavenVersion}/${mavenVersion}/" "${libraryFolder}/build.gradle"
 
 echo "▶️ Add project to settings.gradle"
 
-echo "include ':$libraryName-$libraryVersion'" >> libs/settings.gradle
+echo "include ':$mavenArtifact'" >> libs/settings.gradle
 
 echo "▶️ Done."
