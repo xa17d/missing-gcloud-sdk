@@ -1,0 +1,30 @@
+plugins {
+    id "java-library"
+}
+
+dependencies {
+    implementation "com.google.api-client:google-api-client:1.32.2"
+}
+
+apply plugin: "maven-publish"
+
+publishing {
+    publications {
+        library(MavenPublication) {
+            setGroupId "at.xa1.missing-gcloud-sdk"
+            setArtifactId "firebase-testing"
+            version "1"
+
+            artifact source: jar.archiveFile
+
+            pom.withXml {
+                def dependenciesNode = asNode().appendNode("dependencies")
+                def dependencyNode = dependenciesNode.appendNode("dependency")
+                dependencyNode.appendNode("groupId", "com.google.api-client")
+                dependencyNode.appendNode("artifactId", "google-api-client")
+                dependencyNode.appendNode("version", "1.32.2")
+            }
+
+        }
+    }
+}
